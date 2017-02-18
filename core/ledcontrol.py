@@ -146,7 +146,7 @@ class RGB:
             if current_b != end_b:
                 self._set_pin(self.pin_b, self._nextval(start_b, current_b, end_b, difstep_b))
 
-            if current_r == end_r and curreng_g == end_g and current_b == end_b:
+            if current_r == end_r and current_g == end_g and current_b == end_b:
                 transitioning = False
 
             time.sleep(INTERVAL)
