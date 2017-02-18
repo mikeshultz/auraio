@@ -74,6 +74,8 @@ class RGB:
 
             if nxt > 255:
                 return 255
+            elif nxt < 0:
+                return 0
             else:
                 return nxt
 
