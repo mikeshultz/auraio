@@ -104,9 +104,9 @@ class RGB:
             raise InvalidHexString("Hex string is invalid.")
 
         # convert to decimal
-        red = int(match.group(1), 2)
-        green = int(match.group(2), 2)
-        blue = int(match.group(3), 2)
+        red = int(match.group(1), 16)
+        green = int(match.group(2), 16)
+        blue = int(match.group(3), 16)
 
         return self.set_decimal(red, green, blue)
 
