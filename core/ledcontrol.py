@@ -24,14 +24,14 @@ class RGB:
 
 
 
-    def __init__(r_pin, g_pin, b_pin):
+    def __init__(self, r_pin, g_pin, b_pin):
         self.pin_r = r_pin
         self.pin_g = g_pin
         self.pin_b = b_pin
 
 
 
-    def _normalize_decimal(dec):
+    def _normalize_decimal(self, dec):
         """ Normalize a decimal value between 0 and 255 """
         if dec < 0:
             dec = 0
@@ -40,7 +40,7 @@ class RGB:
         return dec
 
 
-    def _get_pin(pin):
+    def _get_pin(self, pin):
         """ Get the value of the pin's dutycycle """
 
         if type(pin) != type(int()) or pin < 1 or pin > 40:
@@ -50,7 +50,7 @@ class RGB:
 
 
 
-    def _set_pin(pin, cycle):
+    def _set_pin(self, pin, cycle):
         """ Set the pin to its new value """
 
         # brief sanity checks
@@ -62,7 +62,7 @@ class RGB:
         return gpio.set_PWM_dutycycle(pin, cycle)
 
 
-    def _nextval(startv, currentv, endv, step):
+    def _nextval(self, startv, currentv, endv, step):
         """ Figure out what the next step is """
         # are we there yet?
         if start_r <= current_r <= end_r \
@@ -78,7 +78,7 @@ class RGB:
 
 
 
-    def set_decimal(r, g, b):
+    def set_decimal(self, r, g, b):
         """ Set the color of the LED strip using RCB decimal """
 
         # Normalize the input
@@ -93,7 +93,7 @@ class RGB:
 
 
 
-    def set_hex(s):
+    def set_hex(self, s):
         """ Sets the color value of the LED strip according to a hex 
             string 
         """
@@ -110,7 +110,7 @@ class RGB:
 
         return self.set_decimal(red, green, blue)
 
-    def transition_decimal(r, g, b):
+    def transition_decimal(self, r, g, b):
         """ Transition to a color """
 
         start_r = _get_pin(self.pin_r)
