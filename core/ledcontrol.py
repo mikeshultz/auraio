@@ -87,9 +87,9 @@ class RGB:
         b = self._normalize_decimal(b)
 
         # Set the color
-        _set_pin(self.pin_r, r)
-        _set_pin(self.pin_g, g)
-        _set_pin(self.pin_b, b)
+        self._set_pin(self.pin_r, r)
+        self._set_pin(self.pin_g, g)
+        self._set_pin(self.pin_b, b)
 
 
 
@@ -113,9 +113,9 @@ class RGB:
     def transition_decimal(self, r, g, b):
         """ Transition to a color """
 
-        start_r = _get_pin(self.pin_r)
-        start_g = _get_pin(self.pin_g)
-        start_b = _get_pin(self.pin_b)
+        start_r = self._get_pin(self.pin_r)
+        start_g = self._get_pin(self.pin_g)
+        start_b = self._get_pin(self.pin_b)
 
         end_r = r
         end_g = g
@@ -129,17 +129,17 @@ class RGB:
 
         while transitioning:
 
-            current_r = _get_pin(self.pin_r)
-            current_g = _get_pin(self.pin_g)
-            current_b = _get_pin(self.pin_b)
+            current_r = self._get_pin(self.pin_r)
+            current_g = self._get_pin(self.pin_g)
+            current_b = self._get_pin(self.pin_b)
 
             # are we there yet? If not, move to the next step
             if current_r != end_r:
-                _set_pin(self.pin_r, self._nextval(start_r, current_r, end_r, difstep_r))
+                self._set_pin(self.pin_r, self._nextval(start_r, current_r, end_r, difstep_r))
             if current_g != end_g:
-                _set_pin(self.pin_g, self._nextval(start_g, current_g, end_g, difstep_g))
+                self._set_pin(self.pin_g, self._nextval(start_g, current_g, end_g, difstep_g))
             if current_b != end_b:
-                _set_pin(self.pin_b, self._nextval(start_b, current_b, end_b, difstep_b))
+                self._set_pin(self.pin_b, self._nextval(start_b, current_b, end_b, difstep_b))
 
             if current_r == end_r and curreng_g == end_g and current_b == end_b:
                 transitioning = False
