@@ -126,6 +126,10 @@ class RGB:
         difstep_g = round((start_g - end_g) / TRANSITION_STEPS)
         difstep_b = round((start_b - end_b) / TRANSITION_STEPS)
 
+        print("Stepping R by %s" % difstep_r)
+        print("Stepping G by %s" % difstep_g)
+        print("Stepping B by %s" % difstep_b)
+
         transitioning = True
 
         while transitioning:
