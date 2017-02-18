@@ -122,9 +122,9 @@ class RGB:
         end_g = g
         end_b = b
 
-        difstep_r = rount((start_r - end_r) / TRANSITION_STEPS)
-        difstep_g = rount((start_g - end_g) / TRANSITION_STEPS)
-        difstep_b = rount((start_b - end_b) / TRANSITION_STEPS)
+        difstep_r = round((start_r - end_r) / TRANSITION_STEPS)
+        difstep_g = round((start_g - end_g) / TRANSITION_STEPS)
+        difstep_b = round((start_b - end_b) / TRANSITION_STEPS)
 
         transitioning = True
 
