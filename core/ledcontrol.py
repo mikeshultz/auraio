@@ -82,9 +82,9 @@ class RGB:
         """ Set the color of the LED strip using RCB decimal """
 
         # Normalize the input
-        r = _normalize_decimal(r)
-        g = _normalize_decimal(g)
-        b = _normalize_decimal(b)
+        r = self._normalize_decimal(r)
+        g = self._normalize_decimal(g)
+        b = self._normalize_decimal(b)
 
         # Set the color
         _set_pin(self.pin_r, r)
