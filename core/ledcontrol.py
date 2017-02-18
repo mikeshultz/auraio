@@ -13,6 +13,7 @@ TRANSITION_STEPS = 20
 re_rgb_hex = r'#*([A-Fa-f0-9]{1,2})([A-Fa-f0-9]{1,2})([A-Fa-f0-9]{1,2})'
 
 class InvalidHexString(Exception): pass
+class InvalidDutyCycle(Exception): pass
 
 class RGB:
 
@@ -57,7 +58,7 @@ class RGB:
         if type(pin) != type(int()) or pin < 1 or pin > 40:
             raise InvalidGPIOPin("The GPIO pin number provided is invalid. See https://pinout.xyz/ for available GPIO pins")
         if type(cycle) != type(int()) or cycle < 0 or cycle > 255:
-            raise InvalidGPIOPin("The duty cycle parmeter is invalid.  It should be between 0 and 255")
+            raise InvalidDutyCycle("The duty cycle %s parmeter is invalid.  It should be between 0 and 255", cycle)
 
         return gpio.set_PWM_dutycycle(pin, cycle)
 
