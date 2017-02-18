@@ -65,11 +65,11 @@ class RGB:
     def _nextval(self, startv, currentv, endv, step):
         """ Figure out what the next step is """
         # are we there yet?
-        if start_r <= current_r <= end_r \
-            or end_r <= current_r <= start_r:
+        if startv <= currentv <= endv \
+            or endv <= currentv <= startv:
             
             # Not sure about this math...
-            nxt = current_r + step
+            nxt = currentv + step
 
             if nxt > 255:
                 return 255
