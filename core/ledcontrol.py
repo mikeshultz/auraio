@@ -23,6 +23,8 @@ class RGB:
     pin_g = -1
     pin_b = -1
 
+    transitioning = False
+
 
 
     def __init__(self, r_pin, g_pin, b_pin):
@@ -65,6 +67,7 @@ class RGB:
 
     def _nextval(self, startv, currentv, endv, step):
         """ Figure out what the next step is """
+
         # are we there yet?
         if startv <= currentv <= endv \
             or endv <= currentv <= startv:
@@ -72,12 +75,10 @@ class RGB:
             # Not sure about this math...
             nxt = currentv + step
 
-            if nxt > 255:
-                return 255
-            elif nxt < 0:
-                return 0
-            else:
-                return nxt
+            # We don't want to go over 255 or under 0
+            return self._normalize_decimal(nxt)
+
+        return currentv
 
 
 
@@ -101,6 +102,7 @@ class RGB:
             string 
         """
 
+        # Look for a properly formatted hex string
         match = re.match(re_rgb_hex, s)
 
         if not match:
@@ -116,26 +118,27 @@ class RGB:
     def transition_decimal(self, r, g, b):
         """ Transition to a color """
 
+        # Get the start values of the transition
         start_r = self._get_pin(self.pin_r)
         start_g = self._get_pin(self.pin_g)
         start_b = self._get_pin(self.pin_b)
 
+        # Get the destination values
         end_r = r
         end_g = g
         end_b = b
 
+        # Figure out what each 'step' we want to take is
         difstep_r = round((end_r - start_r) / TRANSITION_STEPS)
         difstep_g = round((end_g - start_g) / TRANSITION_STEPS)
         difstep_b = round((end_b - start_b) / TRANSITION_STEPS)
 
-        print("Stepping R by %s" % difstep_r)
-        print("Stepping G by %s" % difstep_g)
-        print("Stepping B by %s" % difstep_b)
+        # signal that we're transitioning
+        self.transitioning = True
 
-        transitioning = True
+        while self.transitioning:
 
-        while transitioning:
-
+            # What is the current PWM setting?
             current_r = self._get_pin(self.pin_r)
             current_g = self._get_pin(self.pin_g)
             current_b = self._get_pin(self.pin_b)
@@ -148,7 +151,9 @@ class RGB:
             if current_b != end_b:
                 self._set_pin(self.pin_b, self._nextval(start_b, current_b, end_b, difstep_b))
 
+            # are we done?  if so, we'll shut down the loop
             if current_r == end_r and current_g == end_g and current_b == end_b:
-                transitioning = False
+                self.transitioning = False
 
+            # wait, so all of this isn't instantaneous
             time.sleep(INTERVAL)
