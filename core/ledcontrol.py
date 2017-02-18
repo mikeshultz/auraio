@@ -1,4 +1,4 @@
-import time, sys, pigpio
+import re, time, sys, pigpio
 
 gpio = pigpio.pi()
 
