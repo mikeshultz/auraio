@@ -43,3 +43,10 @@ class LEDAlert:
         if self.control:
             # Set LEDs to yellow
             self.control.transition_decimal(255, 0, 0)
+
+    def unknown(self): 
+        """ Everything is odd """
+
+        if self.control:
+            # Set LEDs to blue
+            self.control.transition_decimal(0, 0, 255)

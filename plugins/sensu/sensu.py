@@ -56,21 +56,13 @@ class AuraioSensu:
                     highest_status = check['check']['status']
 
             if highest_status == 0:
-                if self.debug:
-                    print("Setting color to green")
-                color = [0,255,0]
+                self.q.put(('good'))
             elif highest_status == 1:
-                if self.debug:
-                    print("Setting color to yellow")
-                color = [0,255,255]
+                self.q.put(('warn'))
             elif highest_status == 2:
-                if self.debug:
-                    print("Setting color to red")
-                color = [255,0,0]
+                self.q.put(('bad'))
             else:
-                if self.debug:
-                    print("Setting color to blue")
-                color = [0,0.255]
+                self.q.put(('unknown'))
 
             if self.q:
                 self.q.put(('transition_decimal', color))
