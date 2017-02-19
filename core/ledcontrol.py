@@ -40,9 +40,9 @@ class RGB:
 
 
     def setup(self):
-        LED_OPS['set_decimal'] = set_decimal
-        LED_OPS['set_hex'] = set_hex
-        LED_OPS['transition'] = transition
+        LED_OPS['set_decimal'] = self.set_decimal
+        LED_OPS['set_hex'] = self.set_hex
+        LED_OPS['transition_decimal'] = self.transition_decimal
 
 
 
