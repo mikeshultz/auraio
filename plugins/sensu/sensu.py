@@ -59,11 +59,11 @@ class AuraioSensu:
                 color = [0,255,0]
             elif highest_status == 1:
                 color = [0,255,255]
-            elif highest_status >= 2:
+            elif highest_status == 2:
                 color = [255,0,0]
             else:
                 color = [0,0.255]
-            
+
             if self.q:
                 self.q.put(('transition_decimal', [255,0,0]))
 
