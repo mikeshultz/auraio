@@ -18,7 +18,7 @@ alert = LEDAlert(main_config['ledalert']['pin_r'], main_config['ledalert']['pin_
 # Get the plugins we're working with
 for sect in plugin_config.sections():
 
-    plugin = None
+    plugin_app = None
 
     try:
         plugin_module = importlib.import_module('plugins.' + sect)
