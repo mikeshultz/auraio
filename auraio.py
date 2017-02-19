@@ -18,6 +18,8 @@ for sect in plugin_config.sections():
     try:
         plugin = importlib.import_module('app', 'plugins.' + sect)
     except ImportError as e:
+        if main_config['debug']:
+            print(e)
         print('Error importing %s' % sect)
 
     if plugin:
