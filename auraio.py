@@ -16,11 +16,11 @@ for sect in plugin_config.sections():
     plugin = None
 
     try:
-        plugin = importlib.import_module('app', 'plugins.' + sect)
+        plugin = importlib.import_module('plugins.' + sect, 'app')
     except ImportError as e:
         if main_config['default'].get('debug', False):
             print(e)
-        print('Error importing %s' % sect)
+        print('Error importing %s' % 'plugins.' + sect + '.app')
 
     if plugin:
         new_thread = threading.Thread(target = plugin, name = sect, kwargs = plugin_config[sect])
