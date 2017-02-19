@@ -1,4 +1,4 @@
-from sensu import AuraioSensu
+from .sensu import AuraioSensu
 
 def app(*args, **kwargs):
     """ Run the plugin """
