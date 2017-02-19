@@ -1,4 +1,4 @@
-import configparser, threading, importlib, queue
+import configparser, threading, importlib, queue, collections
 from core.ledcontrol import LED_OPS
 from core.alert import LEDAlert, OPS_MSG
 
@@ -48,12 +48,21 @@ try:
 
             # Check the alert ops as well
             if OPS_MSG.get(op):
-                OPS_MSG[op](*args)
+                if args and isinstance(args, collections.Iterable):
+                    OPS_MSG[op](*args)
+                elif not args:
+                    OPS_MSG[op]()
+                else:
+                    OPS_MSG[op](args)
 
             # See if the operation exists in LED_OPS
             elif LED_OPS.get(op):
-                # Run it
-                LED_OPS[op](*args)
+                if args and isinstance(args, collections.Iterable):
+                    LED_OPS[op](*args)
+                elif not args:
+                    LED_OPS[op]()
+                else:
+                    LED_OPS[op](args)
 
             else: 
                 # log warning
