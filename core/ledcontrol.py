@@ -9,6 +9,11 @@ B = 17
 
 INTERVAL = 0.1
 TRANSITION_STEPS = 20
+LED_OPS = {
+    'set_decimal': None,
+    'set_hex': None,
+    'transition': None,
+}
 
 re_rgb_hex = r'#*([A-Fa-f0-9]{1,2})([A-Fa-f0-9]{1,2})([A-Fa-f0-9]{1,2})'
 
@@ -31,6 +36,13 @@ class RGB:
         self.pin_r = r_pin
         self.pin_g = g_pin
         self.pin_b = b_pin
+        self.setup()
+
+
+    def setup(self):
+        LED_OPS['set_decimal'] = set_decimal
+        LED_OPS['set_hex'] = set_hex
+        LED_OPS['transition'] = transition
 
 
 
