@@ -55,17 +55,18 @@ class AuraioSensu:
                 if check['check']['status'] > highest_status:
                     highest_status = check['check']['status']
 
-            if highest_status == 0:
-                self.q.put(('good'))
-            elif highest_status == 1:
-                self.q.put(('warn'))
-            elif highest_status == 2:
-                self.q.put(('bad'))
-            else:
-                self.q.put(('unknown'))
+            if not self.q:
+                print('Error: queue is missing?')
+                return None
 
-            if self.q:
-                self.q.put(('transition_decimal', color))
+            if highest_status == 0:
+                self.q.put(('good', None))
+            elif highest_status == 1:
+                self.q.put(('warn', None))
+            elif highest_status == 2:
+                self.q.put(('bad', None))
+            else:
+                self.q.put(('unknown', None))
 
 
 
