@@ -18,6 +18,7 @@ class LEDAlert:
 
     def __init__(self, pin_r, pin_g, pin_b):
         self.control = RGB(pin_r, pin_g, pin_b)
+        self.setup()
 
     def setup(self):
         OPS_MSG['good'] = self.good
