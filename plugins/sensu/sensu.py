@@ -73,7 +73,7 @@ class AuraioSensu:
                 color = [0,0.255]
 
             if self.q:
-                self.q.put(('transition_decimal', [255,0,0]))
+                self.q.put(('transition_decimal', color))
 
 
 
