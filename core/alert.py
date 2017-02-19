@@ -4,6 +4,7 @@ OPS_MSG = {
     'good': None,
     'warn': None,
     'bad': None,
+    'unknown': None,
 }
 
 # Th
@@ -22,6 +23,7 @@ class LEDAlert:
         OPS_MSG['good'] = self.good
         OPS_MSG['warn'] = self.warn
         OPS_MSG['bad'] = self.bad
+        OPS_MSG['unknown'] = self.unknown
 
     def good(self): 
         """ Everything is swell """
