@@ -4,6 +4,9 @@ from core.ledcontrol import LED_OPS, RGB
 main_config = configparser.ConfigParser()
 main_config.read('auraio.ini')
 
+# Often used conf
+DEBUG = main_config['default'].get('debug', False)
+
 plugin_config = configparser.ConfigParser()
 plugin_config.read('plugins.ini')
 
@@ -19,11 +22,13 @@ for sect in plugin_config.sections():
         plugin_module = importlib.import_module('plugins.' + sect)
         plugin_app = getattr(plugin_module, 'app')
     except ImportError as e:
-        if main_config['default'].get('debug', False):
+        if DEBUG:
             print(e)
         print('Error importing %s' % 'plugins.' + sect + '.app')
 
     if plugin:
+        if DEBUG:
+            print('Starting new thread for %s' % sect)
         new_thread = threading.Thread(target = plugin_app, name = sect, kwargs = plugin_config[sect])
         new_thread.daemon = True
         new_thread.start()
