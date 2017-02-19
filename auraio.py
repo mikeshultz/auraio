@@ -2,14 +2,16 @@ import configparser, threading, importlib, queue, collections
 from core.ledcontrol import LED_OPS
 from core.alert import LEDAlert, OPS_MSG
 
+DIR = os.path.dirname(os.path.realpath(__file__))
+
 main_config = configparser.ConfigParser()
-main_config.read('auraio.ini')
+main_config.read(DIR + 'auraio.ini')
 
 # Often used conf
 DEBUG = main_config['default'].get('debug', False)
 
 plugin_config = configparser.ConfigParser()
-plugin_config.read('plugins.ini')
+plugin_config.read(DIR + 'plugins.ini')
 
 threads = []
 auraioq = queue.Queue(255)
