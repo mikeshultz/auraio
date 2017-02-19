@@ -26,7 +26,7 @@ for sect in plugin_config.sections():
             print(e)
         print('Error importing %s' % 'plugins.' + sect + '.app')
 
-    if plugin:
+    if plugin_app:
         if DEBUG:
             print('Starting new thread for %s' % sect)
         new_thread = threading.Thread(target = plugin_app, name = sect, kwargs = plugin_config[sect])
