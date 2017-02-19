@@ -43,11 +43,29 @@ class AuraioSensu:
         if not jason:
             print('Error: No JSON received from Sensu?')
         else:
+            # default to good
+            highest_status = 0
+
+            # go through each check and look for the highest(worst) status
             for check in jason:
-                if check['check']['status'] > 0:
+
+                if self.debug and check['check']['status'] > 0:
                     print('Found a problem with client %s' % check['client'])
-                    if self.q:
-                        self.q.put(('transition_decimal', [255,0,0]))
+
+                if check['check']['status'] > highest_status:
+                    highest_status = check['check']['status']
+
+            if highest_status == 0:
+                color = [0,255,0]
+            elif highest_status == 1:
+                color = [0,255,255]
+            elif highest_status >= 2:
+                color = [255,0,0]
+            else:
+                color = [0,0.255]
+            
+            if self.q:
+                self.q.put(('transition_decimal', [255,0,0]))
 
 
 
