@@ -57,7 +57,7 @@ try:
 
             else: 
                 # log warning
-                print("Warning: LED Operation does not exist.")
+                print("Warning: LED Operation %s does not exist." % op)
 
 except KeyboardInterrupt:
     # log here
