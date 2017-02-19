@@ -57,7 +57,7 @@ try:
 
             else: 
                 # log warning
-                print("Warning: Operation '%s' does not exist. Valid operations are: %s" % (op, LED_OPS + OPS_MSG))
+                print("Warning: Operation '%s' does not exist. Valid operations are: %s" % (op, {**LED_OPS, **OPS_MSG}))
 
 except KeyboardInterrupt:
     # log here
