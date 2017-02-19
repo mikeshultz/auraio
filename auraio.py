@@ -46,14 +46,14 @@ try:
             # Get the operation and arguments
             op,args = auraioq.get()
 
+            # Check the alert ops as well
+            if OPS_MSG.get(op):
+                OPS_MSG[op](*args)
+
             # See if the operation exists in LED_OPS
-            if LED_OPS.get(op):
+            elif LED_OPS.get(op):
                 # Run it
                 LED_OPS[op](*args)
-
-            # Check the alert ops as well
-            elif OPS_MSG.get(op):
-                OPS_MSG[op](*args)
 
             else: 
                 # log warning
