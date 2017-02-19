@@ -33,9 +33,9 @@ class RGB:
 
 
     def __init__(self, r_pin, g_pin, b_pin):
-        self.pin_r = r_pin
-        self.pin_g = g_pin
-        self.pin_b = b_pin
+        self.pin_r = int(r_pin)
+        self.pin_g = int(g_pin)
+        self.pin_b = int(b_pin)
         self.setup()
 
 
