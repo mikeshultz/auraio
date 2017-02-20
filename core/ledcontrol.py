@@ -49,9 +49,17 @@ class RGB:
         gpio.set_mode(self.pin_g, pigpio.OUTPUT)
         gpio.set_mode(self.pin_b, pigpio.OUTPUT)
 
+        gpio.set_PWM_dutycycle(self.pin_r, 255)
+        gpio.set_PWM_dutycycle(self.pin_g, 255)
+        gpio.set_PWM_dutycycle(self.pin_b, 255)
+
         gpio.set_PWM_frequency(self.pin_r, FREQUENCY)
         gpio.set_PWM_frequency(self.pin_g, FREQUENCY)
         gpio.set_PWM_frequency(self.pin_b, FREQUENCY)
+
+        gpio.set_PWM_dutycycle(self.pin_r, 0)
+        gpio.set_PWM_dutycycle(self.pin_g, 0)
+        gpio.set_PWM_dutycycle(self.pin_b, 0)
 
 
 
