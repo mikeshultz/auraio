@@ -45,13 +45,13 @@ class RGB:
         LED_OPS['set_hex'] = self.set_hex
         LED_OPS['transition_decimal'] = self.transition_decimal
 
-        gpio.set_mode(r_pin, pigpio.OUTPUT)
-        gpio.set_mode(g_pin, pigpio.OUTPUT)
-        gpio.set_mode(b_pin, pigpio.OUTPUT)
+        gpio.set_mode(self.pin_r, pigpio.OUTPUT)
+        gpio.set_mode(self.pin_g, pigpio.OUTPUT)
+        gpio.set_mode(self.pin_b, pigpio.OUTPUT)
 
-        gpio.set_PWM_frequency(r_pin, FREQUENCY)
-        gpio.set_PWM_frequency(g_pin, FREQUENCY)
-        gpio.set_PWM_frequency(b_pin, FREQUENCY)
+        gpio.set_PWM_frequency(self.pin_r, FREQUENCY)
+        gpio.set_PWM_frequency(self.pin_g, FREQUENCY)
+        gpio.set_PWM_frequency(self.pin_b, FREQUENCY)
 
 
 
