@@ -16,8 +16,10 @@ class LEDAlert:
 
     control = None
 
-    def __init__(self, pin_r, pin_g, pin_b):
+    def __init__(self, pin_r, pin_g, pin_b, frequency = None):
         self.control = RGB(pin_r, pin_g, pin_b)
+        if frequency:
+            self.control.set_frequency(frequency)
         self.setup()
 
     def setup(self):
