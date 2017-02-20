@@ -24,7 +24,7 @@ plugin_config.read(pluginsini)
 
 threads = []
 auraioq = queue.Queue(255)
-alert = LEDAlert(main_config['ledalert']['pin_r'], main_config['ledalert']['pin_g'], main_config['ledalert']['pin_b'], main_config.get('ledalert', 'pin_b' fallback=Nnoe))
+alert = LEDAlert(main_config['ledalert']['pin_r'], main_config['ledalert']['pin_g'], main_config['ledalert']['pin_b'], main_config.get('ledalert', 'pin_b', fallback=Nnoe))
 
 # Get the plugins we're working with
 for sect in plugin_config.sections():
