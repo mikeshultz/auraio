@@ -1,17 +1,26 @@
-import os, configparser, threading, importlib, queue, collections
+import os, sys, configparser, threading, importlib, queue, collections
 from core.ledcontrol import LED_OPS
 from core.alert import LEDAlert, OPS_MSG
 
 DIR = os.path.dirname(os.path.realpath(__file__))
+auraioini = os.path.join(DIR, 'auraio.ini')
+pluginsini = os.path.join(DIR, 'plugins.ini')
+
+if not os.path.isfile(auraioini):
+    print("Error: auraio.ini not found at %s." % auraioini)
+    sys.exit(1)
+if not os.path.isfile(pluginsini):
+    print("Error: plugins.ini not found at %s." % pluginsini)
+    sys.exit(1)
 
 main_config = configparser.ConfigParser()
-main_config.read(DIR + 'auraio.ini')
+main_config.read(auraioini)
 
 # Often used conf
 DEBUG = main_config['default'].get('debug', False)
 
 plugin_config = configparser.ConfigParser()
-plugin_config.read(DIR + 'plugins.ini')
+plugin_config.read(pluginsini)
 
 threads = []
 auraioq = queue.Queue(255)
