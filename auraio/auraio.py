@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import os, sys, configparser, threading, importlib, queue, collections
-from core.ledcontrol import LED_OPS
-from core.alert import LEDAlert, OPS_MSG
+from auraio.core.ledcontrol import LED_OPS
+from auraio.core.alert import LEDAlert, OPS_MSG
 
 DIR = os.path.dirname(os.path.realpath(__file__))
 auraioini = os.path.join(DIR, 'auraio.ini')

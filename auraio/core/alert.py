@@ -1,4 +1,4 @@
-from core.ledcontrol import RGB
+from auraio.core.ledcontrol import RGB
 
 OPS_MSG = {
     'good': None,
