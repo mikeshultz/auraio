@@ -9,6 +9,7 @@ B = 17
 
 INTERVAL = 0.1
 TRANSITION_STEPS = 20
+FREQUENCY = 60
 LED_OPS = {
     'set_decimal': None,
     'set_hex': None,
@@ -44,6 +45,22 @@ class RGB:
         LED_OPS['set_hex'] = self.set_hex
         LED_OPS['transition_decimal'] = self.transition_decimal
 
+        gpio.set_mode(self.pin_r, pigpio.OUTPUT)
+        gpio.set_mode(self.pin_g, pigpio.OUTPUT)
+        gpio.set_mode(self.pin_b, pigpio.OUTPUT)
+
+        gpio.set_PWM_dutycycle(self.pin_r, 255)
+        gpio.set_PWM_dutycycle(self.pin_g, 255)
+        gpio.set_PWM_dutycycle(self.pin_b, 255)
+
+        gpio.set_PWM_frequency(self.pin_r, FREQUENCY)
+        gpio.set_PWM_frequency(self.pin_g, FREQUENCY)
+        gpio.set_PWM_frequency(self.pin_b, FREQUENCY)
+
+        gpio.set_PWM_dutycycle(self.pin_r, 0)
+        gpio.set_PWM_dutycycle(self.pin_g, 0)
+        gpio.set_PWM_dutycycle(self.pin_b, 0)
+
 
 
     def _normalize_decimal(self, dec):
@@ -74,7 +91,7 @@ class RGB:
         if type(cycle) != type(int()) or cycle < 0 or cycle > 255:
             raise InvalidDutyCycle("The duty cycle %s parmeter is invalid.  It should be between 0 and 255" % cycle)
 
-        return gpio.set_PWM_dutycycle(pin, cycle)
+        return gpio.set_PWM_dutycycle(pin, cycle)        
 
 
     def _nextval(self, startv, currentv, endv, step):
@@ -92,6 +109,12 @@ class RGB:
 
         return currentv
 
+
+    def set_frequency(self, freq):
+        """ Set the PWM frequency to use """
+        FREQUENCY = freq
+        # reinit
+        self.setup()
 
 
     def set_decimal(self, r, g, b):
