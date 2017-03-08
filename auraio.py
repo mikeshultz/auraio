@@ -1,3 +1,6 @@
+#!/bin/python
+# -*- coding: utf-8 -*-
+
 import os, sys, configparser, threading, importlib, queue, collections
 from core.ledcontrol import LED_OPS
 from core.alert import LEDAlert, OPS_MSG
@@ -48,43 +51,55 @@ for sect in plugin_config.sections():
         new_thread.start()
         threads.append(new_thread)
 
-try:
+def shutdown_clean(self, signum, frame):
+    """ Clean shutdown """
 
-    while True:
-
-        if auraioq.qsize() > 0:
-
-            # Get the operation and arguments
-            op,args = auraioq.get()
-
-            # Check the alert ops as well
-            if OPS_MSG.get(op):
-                if args and isinstance(args, collections.Iterable):
-                    OPS_MSG[op](*args)
-                elif not args:
-                    OPS_MSG[op]()
-                else:
-                    OPS_MSG[op](args)
-
-            # See if the operation exists in LED_OPS
-            elif LED_OPS.get(op):
-                if args and isinstance(args, collections.Iterable):
-                    LED_OPS[op](*args)
-                elif not args:
-                    LED_OPS[op]()
-                else:
-                    LED_OPS[op](args)
-
-            else: 
-                # log warning
-                print("Warning: Operation '%s' does not exist. Valid operations are: %s" % (op, {**LED_OPS, **OPS_MSG}))
-
-except KeyboardInterrupt:
     # log here
     # Shutdown threads
     for t in threads:
         if t.is_alive():
             print('TODO: Thread cleanup')
 
-except Exception as e:
-    raise e
+    # TODO: turn all LEDs off
+    print('Shutting down.')
+
+def main():
+
+    signal.signal(signal.SIGTERM, shutdown_clean)
+
+    try:
+
+        while True:
+
+            if auraioq.qsize() > 0:
+
+                # Get the operation and arguments
+                op,args = auraioq.get()
+
+                # Check the alert ops as well
+                if OPS_MSG.get(op):
+                    if args and isinstance(args, collections.Iterable):
+                        OPS_MSG[op](*args)
+                    elif not args:
+                        OPS_MSG[op]()
+                    else:
+                        OPS_MSG[op](args)
+
+                # See if the operation exists in LED_OPS
+                elif LED_OPS.get(op):
+                    if args and isinstance(args, collections.Iterable):
+                        LED_OPS[op](*args)
+                    elif not args:
+                        LED_OPS[op]()
+                    else:
+                        LED_OPS[op](args)
+
+                else: 
+                    # log warning
+                    print("Warning: Operation '%s' does not exist. Valid operations are: %s" % (op, {**LED_OPS, **OPS_MSG}))
+
+    except Exception as e:
+        raise e
+
+if __name__ == '__main__':
+    main()
